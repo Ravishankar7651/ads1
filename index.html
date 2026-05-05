@@ -13,308 +13,125 @@
     --text: #e8e4dc;
     --muted: #666;
     --accent: #d4a853;
-    --red: #c0392b;
   }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.7; min-height:100vh; overflow-x:hidden; }
 
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    line-height: 1.7;
-    min-height: 100vh;
-  }
-
-  /* ── HEADER ── */
-  .site-header {
-    border-bottom: 1px solid var(--border);
-    padding: 0 40px;
+  /* ══════════════════════════════
+     FULL SCREEN POPUP — no close
+     ══════════════════════════════ */
+  #ad-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 99999;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    height: 64px;
-    position: sticky;
-    top: 0;
-    background: var(--bg);
-    z-index: 100;
+    justify-content: center;
   }
-  .logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 26px;
-    font-weight: 700;
-    letter-spacing: .04em;
-    color: var(--text);
-  }
-  .logo span { color: var(--accent); }
-  .nav {
+  #ad-popup {
     display: flex;
-    gap: 28px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: popIn .4s cubic-bezier(.22,1,.36,1) both;
   }
-  .nav a {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color .2s;
+  @keyframes popIn {
+    from { opacity:0; transform:scale(.9); }
+    to   { opacity:1; transform:scale(1); }
   }
-  .nav a:hover { color: var(--accent); }
-
-  /* ── HERO ── */
-  .hero {
-    max-width: 860px;
-    margin: 80px auto 60px;
-    padding: 0 24px;
-    text-align: center;
-  }
-  .hero-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: .25em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 20px;
-    display: block;
-  }
-  .hero h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(36px, 6vw, 72px);
-    font-weight: 300;
-    line-height: 1.1;
-    letter-spacing: -.01em;
-    margin-bottom: 20px;
-  }
-  .hero h1 em { font-style: italic; color: var(--accent); }
-  .hero-sub {
-    font-size: 15px;
-    color: var(--muted);
-    max-width: 540px;
-    margin: 0 auto 28px;
-    font-weight: 300;
-  }
-  .hero-meta {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    color: #444;
-  }
-
-  /* ── DIVIDER ── */
-  .divider {
-    border: none;
-    border-top: 1px solid var(--border);
-    max-width: 860px;
-    margin: 0 auto;
-  }
-
-  /* ── AD WRAPPER ── */
-  .ad-wrap {
-    max-width: 860px;
-    margin: 48px auto;
-    padding: 0 24px;
-  }
-  .ad-inner {
-    border: 1px solid var(--border);
-    background: var(--surface);
-    padding: 20px;
-    text-align: center;
-    position: relative;
-  }
-  .ad-tag {
+  #ad-popup .ad-label {
     font-family: 'DM Mono', monospace;
     font-size: 9px;
-    letter-spacing: .22em;
-    text-transform: uppercase;
-    color: #3a3a3a;
-    display: block;
-    margin-bottom: 12px;
-  }
-
-  /* ── ARTICLE BODY ── */
-  .article {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-  .article p {
-    font-size: 16px;
-    line-height: 1.85;
-    color: #c8c4bc;
-    margin-bottom: 1.4em;
-    font-weight: 300;
-  }
-  .article h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
-    font-weight: 600;
-    margin: 2.2em 0 .7em;
-    letter-spacing: -.01em;
-  }
-  .pullquote {
-    border-left: 3px solid var(--accent);
-    padding: 14px 24px;
-    margin: 32px 0;
-    background: #161200;
-  }
-  .pullquote p {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-style: italic;
-    color: var(--text) !important;
-    margin: 0 !important;
-  }
-
-  /* ── POST GRID ── */
-  .section-label {
-    max-width: 860px;
-    margin: 64px auto 24px;
-    padding: 0 24px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .section-label span {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
     letter-spacing: .25em;
     text-transform: uppercase;
-    color: var(--muted);
-    white-space: nowrap;
+    color: #555;
+    margin-bottom: 14px;
   }
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .post-grid {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 0 24px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-  }
-  @media(max-width:640px){ .post-grid { grid-template-columns: 1fr; } }
-
-  .post-card {
-    border: 1px solid var(--border);
-    padding: 20px;
-    background: var(--surface);
-    transition: border-color .2s;
-    cursor: pointer;
-  }
-  .post-card:hover { border-color: var(--accent); }
-  .card-cat {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 8px;
-    display: block;
-  }
-  .card-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 1.3;
-    margin-bottom: 8px;
-  }
-  .card-excerpt {
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  /* ── NEWSLETTER ── */
-  .newsletter {
-    max-width: 860px;
-    margin: 64px auto;
-    padding: 0 24px;
-  }
-  .newsletter-inner {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 48px 40px;
-    text-align: center;
-  }
-  .newsletter-inner h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 32px;
-    font-weight: 300;
-    margin-bottom: 8px;
-  }
-  .newsletter-inner p {
-    font-size: 13px;
-    color: var(--muted);
-    margin-bottom: 24px;
-  }
-  .nl-form {
+  /* the actual ad iframe sits here — centered */
+  #ad-popup .ad-slot {
     display: flex;
-    gap: 0;
-    max-width: 420px;
-    margin: 0 auto;
-  }
-  .nl-form input {
-    flex: 1;
-    background: #0e0e0e;
-    border: 1px solid var(--border);
-    border-right: none;
-    color: var(--text);
-    padding: 12px 16px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    outline: none;
-  }
-  .nl-form input::placeholder { color: #444; }
-  .nl-form button {
-    background: var(--accent);
-    color: #000;
-    border: none;
-    padding: 12px 20px;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-weight: 500;
+    align-items: center;
+    justify-content: center;
   }
 
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--border);
-    text-align: center;
-    padding: 32px 20px;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    color: #333;
-    margin-top: 40px;
-  }
-  footer strong { color: var(--accent); }
+  /* ══ SITE ══ */
+  .site-header { border-bottom:1px solid var(--border); padding:0 40px; display:flex; align-items:center; justify-content:space-between; height:64px; position:sticky; top:0; background:var(--bg); z-index:100; }
+  .logo { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:700; letter-spacing:.04em; }
+  .logo span { color:var(--accent); }
+  .nav { display:flex; gap:28px; }
+  .nav a { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); text-decoration:none; transition:color .2s; }
+  .nav a:hover { color:var(--accent); }
 
-  /* animations */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .hero, .ad-wrap, .article, .post-grid, .newsletter {
-    animation: fadeUp .7s ease both;
-  }
+  .hero { max-width:860px; margin:80px auto 60px; padding:0 24px; text-align:center; }
+  .hero-tag { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.25em; text-transform:uppercase; color:var(--accent); margin-bottom:20px; display:block; }
+  .hero h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(36px,6vw,72px); font-weight:300; line-height:1.1; margin-bottom:20px; }
+  .hero h1 em { font-style:italic; color:var(--accent); }
+  .hero-sub { font-size:15px; color:var(--muted); max-width:540px; margin:0 auto 28px; font-weight:300; }
+  .hero-meta { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:#444; }
+
+  hr.divider { border:none; border-top:1px solid var(--border); max-width:860px; margin:0 auto; }
+
+  .ad-wrap { max-width:860px; margin:48px auto; padding:0 24px; }
+  .ad-inner { border:1px solid var(--border); background:var(--surface); padding:20px; text-align:center; }
+  .ad-tag-inline { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.22em; text-transform:uppercase; color:#3a3a3a; display:block; margin-bottom:12px; }
+
+  .article { max-width:680px; margin:0 auto; padding:0 24px; }
+  .article p { font-size:16px; line-height:1.85; color:#c8c4bc; margin-bottom:1.4em; font-weight:300; }
+  .article h2 { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:600; margin:2.2em 0 .7em; }
+  .pullquote { border-left:3px solid var(--accent); padding:14px 24px; margin:32px 0; background:#161200; }
+  .pullquote p { font-family:'Cormorant Garamond',serif; font-size:22px; font-style:italic; color:var(--text)!important; margin:0!important; }
+
+  .section-label { max-width:860px; margin:64px auto 24px; padding:0 24px; display:flex; align-items:center; gap:16px; }
+  .section-label span { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.25em; text-transform:uppercase; color:var(--muted); white-space:nowrap; }
+  .section-label::after { content:''; flex:1; height:1px; background:var(--border); }
+
+  .post-grid { max-width:860px; margin:0 auto; padding:0 24px; display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  @media(max-width:640px){ .post-grid { grid-template-columns:1fr; } }
+  .post-card { border:1px solid var(--border); padding:20px; background:var(--surface); transition:border-color .2s; }
+  .post-card:hover { border-color:var(--accent); }
+  .card-cat { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); margin-bottom:8px; display:block; }
+  .card-title { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:600; line-height:1.3; margin-bottom:8px; }
+  .card-excerpt { font-size:12px; color:var(--muted); line-height:1.6; }
+
+  .newsletter { max-width:860px; margin:64px auto; padding:0 24px; }
+  .newsletter-inner { background:var(--surface); border:1px solid var(--border); padding:48px 40px; text-align:center; }
+  .newsletter-inner h3 { font-family:'Cormorant Garamond',serif; font-size:32px; font-weight:300; margin-bottom:8px; }
+  .newsletter-inner p { font-size:13px; color:var(--muted); margin-bottom:24px; }
+  .nl-form { display:flex; max-width:420px; margin:0 auto; }
+  .nl-form input { flex:1; background:#0e0e0e; border:1px solid var(--border); border-right:none; color:var(--text); padding:12px 16px; font-family:'DM Sans',sans-serif; font-size:13px; outline:none; }
+  .nl-form input::placeholder { color:#444; }
+  .nl-form button { background:var(--accent); color:#000; border:none; padding:12px 20px; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; cursor:pointer; }
+
+  footer { border-top:1px solid var(--border); text-align:center; padding:32px 20px; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:#333; margin-top:40px; }
+  footer strong { color:var(--accent); }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- ══════════════════════════════════════════════
+     POPUP — centered on screen, NO skip/close
+     ══════════════════════════════════════════════ -->
+<div id="ad-overlay">
+  <div id="ad-popup">
+    <div class="ad-label">Advertisement</div>
+    <div class="ad-slot">
+      <script>
+        atOptions = {
+          'key'    : '0926866c6d9236526a7efeaed4f0b869',
+          'format' : 'iframe',
+          'height' : 90,
+          'width'  : 728,
+          'params' : {}
+        };
+      </script>
+      <script src="https://www.highperformanceformat.com/0926866c6d9236526a7efeaed4f0b869/invoke.js"></script>
+    </div>
+  </div>
+</div>
+
+<!-- ══ WEBSITE ══ -->
 <header class="site-header">
   <div class="logo">Pulse<span>.</span></div>
   <nav class="nav">
@@ -325,7 +142,6 @@
   </nav>
 </header>
 
-<!-- HERO -->
 <section class="hero">
   <span class="hero-tag">&#9679; Editor's Pick &nbsp;·&nbsp; May 2025</span>
   <h1>The Future Is Built by<br/><em>Those Who Show Up</em></h1>
@@ -335,73 +151,49 @@
 
 <hr class="divider"/>
 
-<!-- ════════════════════════════════
-     AD 1 — highperformanceformat 728x90
-     ════════════════════════════════ -->
+<!-- AD 2 — pl26523013 -->
 <div class="ad-wrap">
   <div class="ad-inner">
-    <span class="ad-tag">Advertisement</span>
-    <script>
-      atOptions = {
-        'key' : '0926866c6d9236526a7efeaed4f0b869',
-        'format' : 'iframe',
-        'height' : 90,
-        'width' : 728,
-        'params' : {}
-      };
-    </script>
-    <script src="https://www.highperformanceformat.com/0926866c6d9236526a7efeaed4f0b869/invoke.js"></script>
-  </div>
-</div>
-
-<!-- ARTICLE -->
-<div class="article">
-  <p>For years, the conventional wisdom held that disruption was something that happened <em>to</em> industries — a force arriving from outside, sweeping away the old and replacing it with the new. But the most durable transformations are quieter, slower, and far more human than that narrative suggests.</p>
-
-  <div class="pullquote">
-    <p>"The builders who matter rarely announce themselves. They simply begin."</p>
-  </div>
-
-  <p>Across sectors — from agriculture to artificial intelligence — the real change agents are often invisible until their work becomes impossible to ignore. They don't wait for permission. They don't wait for perfect conditions. They start with what they have and adapt as the landscape shifts beneath them.</p>
-
-  <h2>The Discipline of Beginning</h2>
-  <p>What separates those who shape the future from those who merely witness it is rarely talent or resources. More often it is the willingness to begin — to take the first imperfect step before the path is clear, before the outcome is guaranteed, before anyone else believes it is possible.</p>
-
-  <p>This is not naïve optimism. It is a practiced discipline, cultivated through small daily decisions to engage rather than observe, to contribute rather than critique, to build rather than wait.</p>
-</div>
-
-<!-- ════════════════════════════════
-     AD 2 — pl26523013
-     ════════════════════════════════ -->
-<div class="ad-wrap">
-  <div class="ad-inner">
-    <span class="ad-tag">Advertisement</span>
+    <span class="ad-tag-inline">Advertisement</span>
     <script src="https://pl26523013.profitablecpmratenetwork.com/ea/70/9f/ea709f9efbc1d5f5baa24cef2d8c5493.js"></script>
   </div>
 </div>
 
-<!-- MORE ARTICLE -->
 <div class="article">
-  <p>The discipline of beginning is also the discipline of continuing. Most endeavours fail not at the start but in the middle — that long, unglamorous stretch where the initial excitement has faded and the destination is not yet visible. The builders who endure are those who have made peace with the middle distance.</p>
-
-  <h2>Community as Foundation</h2>
-  <p>No meaningful work is done in isolation. Behind every breakthrough is a network of collaborators, critics, mentors, and supporters whose contributions are often uncredited and almost always essential. The mythology of the lone genius is both persistent and wrong.</p>
-
-  <p>The most resilient projects are those rooted in genuine community — groups of people bound not by contract but by shared conviction. They weather setbacks not because they are fearless but because they are not facing those setbacks alone.</p>
+  <p>For years, the conventional wisdom held that disruption was something that happened <em>to</em> industries — a force arriving from outside, sweeping away the old and replacing it with the new. But the most durable transformations are quieter, slower, and far more human than that narrative suggests.</p>
+  <div class="pullquote">
+    <p>"The builders who matter rarely announce themselves. They simply begin."</p>
+  </div>
+  <p>Across sectors — from agriculture to artificial intelligence — the real change agents are often invisible until their work becomes impossible to ignore. They don't wait for permission. They start with what they have and adapt as the landscape shifts beneath them.</p>
+  <h2>The Discipline of Beginning</h2>
+  <p>What separates those who shape the future from those who merely witness it is rarely talent or resources. More often it is the willingness to begin — to take the first imperfect step before the path is clear, before the outcome is guaranteed, before anyone else believes it is possible.</p>
 </div>
 
-<!-- ════════════════════════════════
-     AD 3 — invoke.js container
-     ════════════════════════════════ -->
+<!-- AD 3 — invoke.js -->
 <div class="ad-wrap">
   <div class="ad-inner">
-    <span class="ad-tag">Advertisement</span>
+    <span class="ad-tag-inline">Advertisement</span>
     <script async="async" data-cfasync="false" src="https://pl26523521.profitablecpmratenetwork.com/8813adb958c701c26cc4607eef77cb33/invoke.js"></script>
     <div id="container-8813adb958c701c26cc4607eef77cb33"></div>
   </div>
 </div>
 
-<!-- POST GRID -->
+<div class="article">
+  <h2>Community as Foundation</h2>
+  <p>No meaningful work is done in isolation. Behind every breakthrough is a network of collaborators, critics, mentors, and supporters whose contributions are often uncredited and almost always essential.</p>
+  <p>The most resilient projects are those rooted in genuine community — groups of people bound not by contract but by shared conviction. They weather setbacks because they are not facing those setbacks alone.</p>
+</div>
+
+<!-- AD 4 — popunder silent -->
+<script>
+  (function(){
+    var f = document.createElement('iframe');
+    f.src = 'https://www.profitablecpmratenetwork.com/ngxsjdein?key=ba9f7a9765c2e0c29bdafcf8bd671e6f';
+    f.style.cssText = 'display:none;width:0;height:0;border:none;position:absolute;';
+    document.body.appendChild(f);
+  })();
+</script>
+
 <div class="section-label"><span>More Stories</span></div>
 <div class="post-grid">
   <div class="post-card">
@@ -421,29 +213,14 @@
   </div>
 </div>
 
-<!-- ════════════════════════════════
-     AD 4 — popunder (silent)
-     ════════════════════════════════ -->
-<script>
-  (function(){
-    var f = document.createElement('iframe');
-    f.src = 'https://www.profitablecpmratenetwork.com/ngxsjdein?key=ba9f7a9765c2e0c29bdafcf8bd671e6f';
-    f.style.cssText = 'display:none;width:0;height:0;border:none;position:absolute;';
-    document.body.appendChild(f);
-  })();
-</script>
-
-<!-- ════════════════════════════════
-     AD 5 — pl26523633
-     ════════════════════════════════ -->
+<!-- AD 5 — pl26523633 -->
 <div class="ad-wrap">
   <div class="ad-inner">
-    <span class="ad-tag">Advertisement</span>
+    <span class="ad-tag-inline">Advertisement</span>
     <script src="https://pl26523633.profitablecpmratenetwork.com/57/69/a4/5769a4c6fb5d2bb18755a81a3eb28789.js"></script>
   </div>
 </div>
 
-<!-- NEWSLETTER -->
 <div class="newsletter">
   <div class="newsletter-inner">
     <h3>Stay in the Loop</h3>
@@ -455,10 +232,7 @@
   </div>
 </div>
 
-<!-- FOOTER -->
-<footer>
-  &copy; 2025 <strong>Pulse</strong> &nbsp;·&nbsp; Independent Media &nbsp;·&nbsp; All Rights Reserved
-</footer>
+<footer>&copy; 2025 <strong>Pulse</strong> &nbsp;·&nbsp; Independent Media &nbsp;·&nbsp; All Rights Reserved</footer>
 
 </body>
 </html>
