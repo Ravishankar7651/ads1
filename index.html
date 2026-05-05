@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Daily Spark</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#f9f6f1;font-family:Georgia,serif;color:#1a1208;}
+
+/* ── OVERLAY BACKDROP ── */
+#overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.75);
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* ── AD POPUP BOX ── */
+#popup{
+  background:#fff;
+  border-radius:6px;
+  padding:24px 28px 20px;
+  text-align:center;
+  position:relative;
+  max-width:95vw;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+}
+#popup .ad-label{
+  font-size:9px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:#999;
+  display:block;
+  margin-bottom:10px;
+}
+#close-btn{
+  position:absolute;
+  top:8px;right:10px;
+  background:none;
+  border:none;
+  font-size:22px;
+  cursor:pointer;
+  color:#555;
+  line-height:1;
+}
+#close-btn:hover{color:#c0392b;}
+
+/* skip timer text */
+#timer-text{
+  display:block;
+  font-size:11px;
+  color:#999;
+  margin-top:12px;
+  letter-spacing:1px;
+}
+#skip-btn{
+  display:none;
+  margin-top:10px;
+  background:#1a1208;
+  color:#fff;
+  border:none;
+  padding:8px 22px;
+  font-size:12px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  cursor:pointer;
+  border-radius:3px;
+}
+#skip-btn:hover{background:#c0392b;}
+
+/* ── SECOND AD STRIP ── */
+#second-ad{
+  background:#f0ece3;
+  border-top:2px solid #1a1208;
+  border-bottom:2px solid #1a1208;
+  text-align:center;
+  padding:12px;
+  display:none;
+}
+#second-ad .ad-label{
+  font-size:9px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:#999;
+  display:block;
+  margin-bottom:6px;
+}
+
+/* ── WEBSITE ── */
+header{background:#1a1208;color:#f9f6f1;text-align:center;padding:14px 10px 10px;}
+header h1{font-size:32px;letter-spacing:2px;}
+header p{font-size:11px;color:#aaa;letter-spacing:3px;text-transform:uppercase;margin-top:2px;}
+.posts{max-width:680px;margin:18px auto;padding:0 14px;}
+.post{border-bottom:1px solid #e0dbd0;padding:14px 0;}
+.post span{font-size:10px;color:#c0392b;letter-spacing:2px;text-transform:uppercase;}
+.post h2{font-size:18px;margin:4px 0 3px;}
+.post p{font-size:13px;color:#666;}
+footer{background:#1a1208;color:#666;text-align:center;padding:12px;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-top:20px;}
+</style>
+</head>
+<body>
+
+<!-- ═══ POPUP OVERLAY — AD 3 shows on page open ═══ -->
+<div id="overlay">
+  <div id="popup">
+    <button id="close-btn" onclick="closeAd()" title="Close">&#10005;</button>
+    <span class="ad-label">Advertisement</span>
+
+    <!-- AD 3 centered in popup -->
+    <script>
+      atOptions = {
+        'key' : '0926866c6d9236526a7efeaed4f0b869',
+        'format' : 'iframe',
+        'height' : 90,
+        'width' : 728,
+        'params' : {}
+      };
+    </script>
+    <script src="https://www.highperformanceformat.com/0926866c6d9236526a7efeaed4f0b869/invoke.js"></script>
+
+    <span id="timer-text">You can skip in <strong id="countdown">5</strong>s</span>
+    <button id="skip-btn" onclick="closeAd()">Skip Ad &#8594;</button>
+  </div>
+</div>
+
+<!-- ═══ WEBSITE ═══ -->
+<header>
+  <h1>Daily Spark</h1>
+  <p>Quick reads · Fresh ideas</p>
+</header>
+
+<!-- AD 1 — shows after popup is closed -->
+<div id="second-ad">
+  <span class="ad-label">Advertisement</span>
+  <script src="https://pl26523013.profitablecpmratenetwork.com/ea/70/9f/ea709f9efbc1d5f5baa24cef2d8c5493.js"></script>
+</div>
+
+<div class="posts">
+  <div class="post">
+    <span>Technology</span>
+    <h2>AI Is Now Writing Code Faster Than Most Developers</h2>
+    <p>New benchmarks show AI tools completing real-world tasks in minutes, reshaping how software is built.</p>
+  </div>
+  <div class="post">
+    <span>Health</span>
+    <h2>10 Minutes of Morning Sun Can Improve Your Whole Day</h2>
+    <p>Research confirms early sunlight exposure boosts mood, alertness, and sleep quality by night.</p>
+  </div>
+  <div class="post">
+    <span>World</span>
+    <h2>Solar Energy Surpasses Coal for the First Time Globally</h2>
+    <p>A milestone as solar panels now generate more electricity than coal plants worldwide.</p>
+  </div>
+</div>
+
+<footer>&copy; 2025 Daily Spark &nbsp;·&nbsp; All rights reserved</footer>
+
+<script>
+  // Countdown timer — skip button appears after 5 seconds
+  var seconds = 5;
+  var timer = setInterval(function(){
+    seconds--;
+    document.getElementById('countdown').textContent = seconds;
+    if(seconds <= 0){
+      clearInterval(timer);
+      document.getElementById('timer-text').style.display = 'none';
+      document.getElementById('skip-btn').style.display = 'inline-block';
+      document.getElementById('close-btn').style.display = 'block';
+    }
+  }, 1000);
+
+  // Hide close button until countdown ends
+  document.getElementById('close-btn').style.display = 'none';
+
+  function closeAd(){
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('second-ad').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
